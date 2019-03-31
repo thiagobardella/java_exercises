@@ -1,32 +1,31 @@
-package exercise1.deserializer;
+package exercise1and2.deserializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import exercise1.models.Campaign;
+import exercise1and2.models.CampaignInput;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
-public class JsonCampaignSerializer extends StdSerializer<Campaign> {
+public class JsonCampaignInputSerializer extends StdSerializer<CampaignInput> {
 
     private static SimpleDateFormat formatter
             = new SimpleDateFormat("dd-MM-yyyy");
 
-    public JsonCampaignSerializer() {
+    public JsonCampaignInputSerializer() {
         this(null);
     }
 
-    public JsonCampaignSerializer(Class<Campaign> vc) {
+    public JsonCampaignInputSerializer(Class<CampaignInput> vc) {
         super(vc);
     }
 
     @Override
     public void serialize(
-            Campaign value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+            CampaignInput value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
 
         jgen.writeStartObject();
-        jgen.writeNumberField("id", value.getTeamId());
         jgen.writeNumberField("team_id", value.getTeamId());
         jgen.writeStringField("name", value.getName());
         jgen.writeStringField("start_date", formatter.format(value.getStartDate()));

@@ -1,10 +1,10 @@
-package exercise1.deserializer;
+package exercise1and2.deserializer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import exercise1.models.CampaignInput;
+import exercise1and2.models.CampaignInput;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;

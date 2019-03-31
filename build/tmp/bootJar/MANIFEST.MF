@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Start-Class: exercise1.Application
+Start-Class: exercise1and2.Application
 Main-Class: org.springframework.boot.loader.JarLauncher
 

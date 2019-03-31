@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="exercise1and2.models.CampaignInputTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-03-31T19:26:54" hostname="GB-L-HV783N2.guiabolso.intra" time="0.198">
+  <properties/>
+  <testcase name="whenDeserializingUsingGsonDeserialize_thenCorrect" classname="exercise1and2.models.CampaignInputTest" time="0.047"/>
+  <testcase name="whenDeserializingUsingJsonDeserialize_thenCorrect" classname="exercise1and2.models.CampaignInputTest" time="0.147"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

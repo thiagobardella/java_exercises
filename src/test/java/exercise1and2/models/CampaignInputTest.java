@@ -1,9 +1,9 @@
-package exercise1.models;
+package exercise1and2.models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import exercise1.deserializer.GsonCampaignInputDeserializer;
+import exercise1and2.deserializer.GsonCampaignInputDeserializer;
 import org.junit.Test;
 
 import java.io.IOException;
