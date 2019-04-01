@@ -1,14 +1,12 @@
 package exercise1and2.controllers;
 
 
-import exercise1and2.exceptions.PartnerAlreadyRegisteredException;
 import exercise1and2.exceptions.PartnerNotFoundException;
 import exercise1and2.models.*;
 import exercise1and2.utils.DateUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -138,6 +136,7 @@ public class PartnerController {
     @PutMapping(value = "/update/{id}")
     @ResponseBody
     public Partner update(
+            @RequestParam(value = "team_id", required = false) String teamId,
             @RequestParam(value = "full_name", required = false) String fullName,
             @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "birth_date", required = false) String birthDateStr,
@@ -146,6 +145,7 @@ public class PartnerController {
         Partner partnerToUpdate = getPartnerBy(id);
         if (partnerToUpdate == null) throw new PartnerNotFoundException();
 
+        if (teamId != null) partnerToUpdate.setTeamId(Integer.valueOf(teamId));
         if (fullName != null) partnerToUpdate.setFullName(fullName);
         if (email != null) partnerToUpdate.setEmail(email);
         if (birthDateStr != null) partnerToUpdate.setBirthDate(DateUtils.formatter.parse(birthDateStr));
@@ -161,7 +161,7 @@ public class PartnerController {
         PartnerCampaign partnerCampaign = getPartnerCampaignBy(partnerToDelete);
         partners.remove(partnerToDelete);
         if (partnerCampaign != null) partnerCampaigns.remove(partnerCampaign);
-        return "Cliente " + id + " excluído!!";
+        return "Cliente " + id + " excluído!";
     }
 
     @GetMapping(value = "/all")
@@ -169,6 +169,4 @@ public class PartnerController {
     public List<Partner> all() {
         return partners;
     }
-
-
 }

@@ -89,17 +89,17 @@
                
     4)  <b>PUT /prova-java/partners/update/{id}</b>
 
-        Retorna a campanha com seus campos atualizados. Segue exemplo de formato dos parâmetros:
+        Retorna o cliente com seus campos atualizados. Segue exemplo de formato dos parâmetros:
         
-            http://localhost:8080/prova-java/campaigns/update/3?team_id=4&name=newName
+            http://localhost:8080/prova-java/partners/update/3?team_id=2&full_name=New&email=new@gmail.com&birth_date=01-01-2000
         
-        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+        Se o cliente não estiver cadastrado, retorna mensagem explicativa.  
         
-    5)  <b>DELETE /prova-java/campaigns/delete/{id}</b>
+    5)  <b>DELETE /prova-java/partners/delete/{id}</b>
         
-        Exclui a campanha definida por {id} e retorna mensagem explicativa.
+        Exclui o cliente definido por {id} e retorna mensagem explicativa.
                 
-        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+        Se o cliente não estiver cadastrado, retorna mensagem explicativa.  
 
 
    Período de vigência:
