@@ -159,7 +159,7 @@ Um forma de se remediar deadlocks é através da configuração de timeouts, o q
 
 A forma mais eficaz de se evitar deadlocks é não utilizar locks aninhados, ou seja, um método não deve pedir o lock de um recurso quando já possui lock para um outro recurso. Se múltiplos locks forem necessários, devem ser agrupados em um lock único que bloqueia todos os recursos antes de se iniciar essa cadeia de solicitações.
 
-## Exercise 5
+## Exercício 5
 
 <b>Uma das grandes inclusões no Java 8 foi a API Stream. Com ela podemos
 fazer diversas operações de loop, filtros, maps, etc. Porém, existe uma
