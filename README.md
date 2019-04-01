@@ -126,11 +126,11 @@ Caso a data de término de uma campanha seja menor que a data de fim de um perí
 
 ## Exercício 3
 
-1) Para testar esta solução para utilizar o método StreamReader.printSpecialCharacter passando como parêmetro uma String de entrada.
+1) Para testar esta solução, utilizar o método StreamReader.printSpecialCharacter passando como parêmetro uma String de entrada.
 
 2) Se a Stream tiver uma cadeia vazia, ou então o fim da string for atingido, o retorno de getNext() será o char Character.MIN_VALUE
 
-2) Esta solução foi feita a partir da máquina de estados ilustrada abaixo.
+2) Esta solução foi feita a partir da máquina de estados finitos ilustrada abaixo.
 
     ![State Controller](src/main/resources/stateController.jpg)
 
@@ -147,11 +147,11 @@ Caso a data de término de uma campanha seja menor que a data de fim de um perí
 <b>O que é Deadlock? Detalhe um pouco sobre o caso e como você poderia
 resolver isso.</b>
 
-O deadlock é um cenário em que um sistema se encontra bloqueado pois todos seus componentes estão aguardando algum retorno de um outro componente, que, por sua vez, também encontra-se em estado de espera.  
+O deadlock é um cenário em que um sistema se encontra bloqueado pois há componentes aguardando algum retorno de um outro componente, que, por sua vez, também encontra-se em estado de espera.  
 
 Exemplo 1: deadlock irá ocorrer se uma thread que já está com lock de um mutex tentar obter outro lock neste mesmo mutex, pois entrará em modo de espera e não liberará nunca o primeiro lock.
 
-Exemplo 2: quando duas threads estão ambas se aguardando liberarem algum recurso que necessitam, entram em um estado de bloqueio infinito, portanto deadlock. A figura abaixo ilustra este cenário, em que duas threads estão paradas em estado de espera.
+Exemplo 2: quando duas threads estão ambas se aguardando liberarem algum recurso que necessitam, entram em um estado de bloqueio infinito, portanto deadlock. A figura abaixo ilustra este cenário, em que duas threads estão em estado de espera.
 
 ![Deadlock](src/main/resources/deadlock.jpg)
 
