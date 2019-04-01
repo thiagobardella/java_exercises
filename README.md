@@ -2,13 +2,21 @@
 
 ## Exercício 3
 
-1) A primeira dúvida que me surgiu ao ler o enunciado foi: "o propósito do exercício é que eu implemente os métodos getNext(), hasNext() e firstChar() da interface Stream criada manualmente sem utilizar a API stream (java.util.stream), correto?"
+1) Para testar esta solução para utilizar o método StreamReader.printSpecialCharacter passando como parêmetro uma String de entrada.
 
-Para minha pergunta foi respondido que obrigatoriamente os 3 métodos deveriam ser implementados da forma que eu achasse melhor, sem me confundir com o stream do java 8.
-Dessa forma, estou assumindo que não devo utilizar a estrutura Stream do java 8.
+2) Se a Stream tiver uma cadeia vazia, ou então o fim da string for atingido, o retorno de getNext() será o char Character.MIN_VALUE
+
+2) Esta solução foi feita a partir da máquina de estados ilustrada abaixo.
+
+    ![State Controller](src/main/resources/stateController.jpg)
+
+2) A primeira dúvida que me surgiu ao ler o enunciado foi: "o propósito do exercício é que eu implemente os métodos getNext(), hasNext() e firstChar() da interface Stream criada manualmente sem utilizar a API stream (java.util.stream), correto?"
+
+    Para minha pergunta foi respondido que obrigatoriamente os 3 métodos deveriam ser implementados da forma que eu achasse melhor, sem me confundir com o stream do java 8.
+    Dessa forma, estou assumindo que não devo utilizar a estrutura Stream do java 8.
 
 
-![State Controller](src/main/resources/stateController.jpg)
+
 
 ## Exercício 4
 

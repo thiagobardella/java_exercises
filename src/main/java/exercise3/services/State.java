@@ -1,6 +1,6 @@
 package exercise3.services;
 
-public class State {
+class State {
 
     static final int INITIAL = 1;
     static final int VOWEL_FOUND = 2;

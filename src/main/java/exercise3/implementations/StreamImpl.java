@@ -40,7 +40,7 @@ public class StreamImpl implements Stream {
     }
 
     @Override
-    public Boolean isDuplicated(char input) {
+    public boolean isDuplicated(char input) {
         return content.indexOf(String.valueOf(input)) !=
                 content.lastIndexOf(String.valueOf(input));
     }

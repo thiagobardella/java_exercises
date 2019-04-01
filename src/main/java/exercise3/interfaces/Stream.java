@@ -5,6 +5,6 @@ public interface Stream {
     public char getNext();
     public boolean hasNext();
     public char getFirstChar();
-    public Boolean isDuplicated(char input);
+    public boolean isDuplicated(char input);
     
 }
