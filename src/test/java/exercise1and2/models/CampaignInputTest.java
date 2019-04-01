@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exercise1and2.deserializer.GsonCampaignInputDeserializer;
+import exercise1and2.utils.GsonUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -26,10 +27,7 @@ public class CampaignInputTest {
                 "\"end_date\":\"05-02-2018\"" +
                 "}";
 
-        // Configure Gson
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(CampaignInput.class, new GsonCampaignInputDeserializer());
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonUtils.getCustomGsonCampaignInput();
 
         CampaignInput campaignInput = gson.fromJson(json, CampaignInput.class);
 

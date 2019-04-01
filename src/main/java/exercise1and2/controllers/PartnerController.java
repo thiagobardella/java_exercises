@@ -2,8 +2,9 @@ package exercise1and2.controllers;
 
 
 import exercise1and2.exceptions.PartnerAlreadyRegisteredException;
-import exercise1and2.exceptions.PartnerDoesNotExistException;
+import exercise1and2.exceptions.PartnerNotFoundException;
 import exercise1and2.models.*;
+import exercise1and2.utils.DateUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -13,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 @RestController
 @RequestMapping(value = "/prova-java/partners")
 public class PartnerController {
@@ -22,26 +21,29 @@ public class PartnerController {
     private static List<Partner> partners = new ArrayList<>();
     private static List<PartnerCampaign> partnerCampaigns = new ArrayList<>();
 
-    private static SimpleDateFormat formatter
-            = new SimpleDateFormat("dd-MM-yyyy");
-
-    @RequestMapping(value = "/init", method = POST)
+    @PostMapping("/init")
     @ResponseBody
-    public String init() throws ParseException {
-        partners.add(
-                new Partner(1, "Thiago Bardella", "thiago.bardella@gmail.com", formatter.parse("22-05-1990"))
-        );
-        partners.add(
-                new Partner(2, "Jane Doe", "jane.doe@gmail.com", formatter.parse("01-01-1990"))
-        );
-        return "partners added!!";
+    public List<Partner> init() throws ParseException {
+        Partner newPartner1 = new Partner(1, "Thiago Bardella", "thiago.bardella@gmail.com", DateUtils.formatter.parse("22-05-1990"));
+        partners.add(newPartner1);
+        Partner newPartner2 = new Partner(2, "Jane Doe", "jane.doe@gmail.com", DateUtils.formatter.parse("01-01-1990"));
+        partners.add(newPartner2);
+        return partners;
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Partner getPartner(@PathVariable int id) {
+        Partner partner = getPartnerBy(id);
+        if (partner == null) throw new PartnerNotFoundException();
+        return partner;
     }
 
     @GetMapping("/{id}/campaigns")
     @ResponseBody
-    public List<Campaign> getAllCampaigns(@PathVariable int id) {
+    public List<Campaign> getCampaigns(@PathVariable int id) {
         Partner partner = getPartnerBy(id);
-        if (partner == null) return new ArrayList<>();
+        if (partner == null) throw new PartnerNotFoundException();
         PartnerCampaign partnerCampaign = getPartnerCampaignBy(partner);
         if (partnerCampaign == null) return new ArrayList<>();
         return partnerCampaign.getCampaigns();
@@ -51,11 +53,8 @@ public class PartnerController {
     @ResponseBody
     public List<Campaign> getNewCampaigns(@PathVariable int id) {
         Partner partner = getPartnerBy(id);
-        if (partner == null) return new ArrayList<>();
-        List<Campaign> availableCampaigns = CampaignController.campaigns.stream()
-                .filter(campaign -> campaign.isActiveAfter(new Date()) &&
-                        campaign.getTeamId() == partner.getTeamId())
-                .collect(Collectors.toList());
+        if (partner == null) throw new PartnerNotFoundException();
+        List<Campaign> availableCampaigns = getAvailableActiveCampaigns(partner);
 
         PartnerCampaign partnerCampaign = getPartnerCampaignBy(partner);
         if (partnerCampaign != null) availableCampaigns.removeAll(partnerCampaign.getCampaigns());
@@ -66,12 +65,8 @@ public class PartnerController {
     @ResponseBody
     public List<Campaign> join(@PathVariable int id) {
         Partner partner = getPartnerBy(id);
-        if (partner == null) return new ArrayList<>();
-        List<Campaign> availableCampaigns =
-                CampaignController.campaigns.stream()
-                        .filter(campaign -> campaign.isActiveAfter(new Date()) &&
-                                campaign.getTeamId() == partner.getTeamId())
-                        .collect(Collectors.toList());
+        if (partner == null) throw new PartnerNotFoundException();
+        List<Campaign> availableCampaigns = getAvailableActiveCampaigns(partner);
         PartnerCampaign partnerCampaign = getPartnerCampaignBy(partner);
         if (partnerCampaign == null) {
             partnerCampaign = new PartnerCampaign(partner, new ArrayList<>());
@@ -87,26 +82,27 @@ public class PartnerController {
         return partnerCampaign.getCampaigns();
     }
 
-    //TODO (criar API que descobre se um partner tem novas campanhas)
+    private List<Campaign> getAvailableActiveCampaigns(Partner partner) {
+        return CampaignController.campaigns.stream()
+                .filter(campaign -> campaign.isActiveAfter(new Date()) &&
+                        campaign.getTeamId() == partner.getTeamId())
+                .collect(Collectors.toList());
+    }
+
     @PostMapping(value = "/add")
     @ResponseBody
-    //TODO (varificar se posso trocar por um ResponseEntity)
     public List<Campaign> add(@RequestBody PartnerInput partnerInput) {
-        // TODO (create exception handler)
         Partner partner = getPartnerBy(partnerInput.getEmail());
         if (partner != null) {
             PartnerCampaign partnerCampaign = getPartnerCampaignBy(partner);
+            List<Campaign> activeCampaigns = getAvailableActiveCampaigns(partner);
             if (partnerCampaign != null) {
                 if (partnerCampaign.getCampaigns().isEmpty()) {
-                    List<Campaign> activeCampaigns = CampaignController.campaigns.stream().filter(campaign -> campaign.isActiveAfter(new Date())).collect(Collectors.toList());
+                    return activeCampaigns;
                 }
-                else {
-                    List<Campaign> campaignsAlreadyAssigned = partnerCampaign.getCampaigns();
-                }
-            } else {
-                List<Campaign> activeCampaigns = CampaignController.campaigns.stream().filter(campaign -> campaign.isActiveAfter(new Date())).collect(Collectors.toList());
+                return partnerCampaign.getCampaigns();
             }
-            throw new PartnerAlreadyRegisteredException();
+            return activeCampaigns;
         }
 
         Partner newPartner = new Partner(   partnerInput.getTeamId(),
@@ -114,12 +110,8 @@ public class PartnerController {
                                             partnerInput.getEmail(),
                                             partnerInput.getBirthDate());
         partners.add(newPartner);
-        List<Campaign> availableCampaigns =
-                CampaignController.campaigns.stream()
-                        .filter(campaign -> campaign.isActiveAfter(new Date()) &&
-                                            campaign.getTeamId() == newPartner.getTeamId())
-                        .collect(Collectors.toList());
-        return availableCampaigns;
+
+        return getAvailableActiveCampaigns(newPartner);
     }
 
     private Partner getPartnerBy(String email) {
@@ -143,7 +135,6 @@ public class PartnerController {
         return null;
     }
 
-    //TODO (tratar ParseException)
     @PutMapping(value = "/update/{id}")
     @ResponseBody
     public Partner update(
@@ -153,24 +144,24 @@ public class PartnerController {
             @PathVariable int id
     ) throws ParseException {
         Partner partnerToUpdate = getPartnerBy(id);
-        if (partnerToUpdate == null) throw new PartnerDoesNotExistException();
+        if (partnerToUpdate == null) throw new PartnerNotFoundException();
 
         if (fullName != null) partnerToUpdate.setFullName(fullName);
         if (email != null) partnerToUpdate.setEmail(email);
-        if (birthDateStr != null) partnerToUpdate.setBirthDate(formatter.parse(birthDateStr));
+        if (birthDateStr != null) partnerToUpdate.setBirthDate(DateUtils.formatter.parse(birthDateStr));
 
         return partnerToUpdate;
     }
 
-    //TODO (como devolver uma mensagem para o usuário no formato JSON?)
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public String delete(@PathVariable int id) {
         Partner partnerToDelete = getPartnerBy(id);
+        if (partnerToDelete == null) throw new PartnerNotFoundException();
         PartnerCampaign partnerCampaign = getPartnerCampaignBy(partnerToDelete);
         partners.remove(partnerToDelete);
         if (partnerCampaign != null) partnerCampaigns.remove(partnerCampaign);
-        return "Campaign " + id + " deleted!!";
+        return "Cliente " + id + " excluído!!";
     }
 
     @GetMapping(value = "/all")

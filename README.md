@@ -1,6 +1,108 @@
 # java_exercises
 
-Período de vigência:
+## Exercícios 1 e 2
+
+1)  Para este exercício, assumir que todo campo de data deve estar no formato 
+'dd-MM-yyyy'.
+
+2)  Todas as campanhas e clientes estão sendo mantidos em memória, dentro dos controllers correspondentes (CampaignController e PartnerController)
+
+2)  #### API para campanhas
+    
+    1) <b>GET /prova-java/campaigns/{id}</b>
+    
+        Retorna campanha definida pelo {id}.
+    
+        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+
+    2) <b>POST /prova-java/campaigns/add</b>
+    
+        Segue exemplo do conteúdo/body dessa chamada
+    
+            Request Body:
+            {
+            	"team_id": 10,
+            	"name": "third",
+            	"start_date": "01-01-2019",
+            	"end_date": "03-05-2019"
+            }
+        
+        Retorna a nova campanha adicionada.
+        
+        Se a campanha já existir, retorna mensagem explicativa.
+
+    3)  <b>GET /prova-java/campaigns/allActive</b>
+    
+        Retorna todas as campanhas ativas na data atual.
+        
+    4)  <b>PUT /prova-java/campaigns/update/{id}</b>
+
+        Retorna a campanha com seus campos atualizados. Segue exemplo de formato dos parâmetros:
+        
+            http://localhost:8080/prova-java/campaigns/update/3?team_id=4&name=newName
+        
+        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+        
+    5)  <b>DELETE /prova-java/campaigns/delete/{id}</b>
+        
+        Exclui a campanha definida por {id} e retorna mensagem explicativa.
+                
+        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+
+3)  #### API para clientes
+
+    1) <b>GET /prova-java/partners/{id}</b>
+    
+        Retorna o cliente já cadastrado.
+        
+        Se o cliente não estiver cadastrado, retorna mensagem explicativa.    
+    
+    1) <b>GET /prova-java/partners/{id}/campaigns</b>
+    
+        Retorna campanhas associadas ao cliente  definido por {id}.
+    
+        Se o cliente não estiver cadastrado, retorna mensagem explicativa.  
+
+    2) <b>POST /prova-java/partners/add</b>
+    
+        Segue exemplo do conteúdo/body dessa chamada
+    
+            Request Body:
+            {
+            	"team_id": 10,
+            	"full_name": "Full Name",
+            	"email": "full.name@gmail.com",
+            	"birth_date": "01-01-2000"
+            }
+        
+        Se o cliente já tem cadastro, e tem campanhas ativas associadas, retorna tais campanhas;
+        
+        Se o cliente não tem cadastro ou já possui mas não tem campanhas associadas, retorna as novas campanhas ativas do seu time do coração para associação;
+    
+    3)  <b>GET /prova-java/partners/{id}/new</b>
+    
+        Retorna todas as novas campanhas ativas na data atual para o time do coração do cliente {id}.
+       
+    3)  <b>POST /prova-java/partners/{id}/join</b>
+           
+        Associa cliente às novas campanhas ativas para seu time do coração e retorna todas as novas campanhas associadas.
+               
+    4)  <b>PUT /prova-java/partners/update/{id}</b>
+
+        Retorna a campanha com seus campos atualizados. Segue exemplo de formato dos parâmetros:
+        
+            http://localhost:8080/prova-java/campaigns/update/3?team_id=4&name=newName
+        
+        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+        
+    5)  <b>DELETE /prova-java/campaigns/delete/{id}</b>
+        
+        Exclui a campanha definida por {id} e retorna mensagem explicativa.
+                
+        Se a campanha não estiver cadastrada, retorna mensagem explicativa.  
+
+
+   Período de vigência:
 Caso a data de término de uma campanha seja menor que a data de fim de um período e maior que a data de início de um período, então essa campanha está em <b>vigência</b> para este período.
 
 ## Exercício 3

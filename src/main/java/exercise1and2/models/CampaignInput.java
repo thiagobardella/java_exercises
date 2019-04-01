@@ -8,7 +8,6 @@ import exercise1and2.deserializer.JsonCampaignInputSerializer;
 
 import java.util.Date;
 
-//TODO (check if serializer is being used or just tested)
 @JsonSerialize(using = JsonCampaignInputSerializer.class)
 @JsonDeserialize(using = JsonCampaignInputDeserializer.class)
 public class CampaignInput {
@@ -24,7 +23,6 @@ public class CampaignInput {
     @SerializedName("end_date")
     private Date endDate;
 
-    //TODO (validate input dates - ex.: startDate must be less than or equals endDate)
     public CampaignInput(int teamId, String name, Date startDate, Date endDate) {
         this.teamId = teamId;
         this.name = name;
