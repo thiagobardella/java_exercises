@@ -5,15 +5,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import exercise1and2.models.CampaignInput;
+import exercise1and2.utils.DateUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class JsonCampaignInputDeserializer extends StdDeserializer<CampaignInput> {
-
-    private static SimpleDateFormat formatter
-            = new SimpleDateFormat("dd-MM-yyyy");
 
     public JsonCampaignInputDeserializer() {
         this(null);
@@ -22,7 +20,6 @@ public class JsonCampaignInputDeserializer extends StdDeserializer<CampaignInput
     public JsonCampaignInputDeserializer(Class<?> vc) {
         super(vc);
     }
-
 
     @Override
     public CampaignInput deserialize(
@@ -34,7 +31,7 @@ public class JsonCampaignInputDeserializer extends StdDeserializer<CampaignInput
         String startDate = node.get("start_date").asText();
         String endDate = node.get("end_date").asText();
         try {
-            return new CampaignInput(teamId, name, formatter.parse(startDate), formatter.parse(endDate));
+            return new CampaignInput(teamId, name, DateUtils.formatter.parse(startDate), DateUtils.formatter.parse(endDate));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

@@ -9,7 +9,6 @@ import exercise1and2.utils.DateUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -25,10 +24,10 @@ public class CampaignController {
     @PostMapping("/init")
     @ResponseBody
     public List<Campaign> init() throws ParseException {
-        Campaign newCampaign1 = new Campaign(1,1, "first", DateUtils.formatter.parse("01-01-2019"), DateUtils.formatter.parse("03-05-2019"));
-        if (!campaigns.contains(newCampaign1)) campaigns.add(newCampaign1);
-        Campaign newCampaign2 = new Campaign(2,2, "second", DateUtils.formatter.parse("01-01-2019"), DateUtils.formatter.parse("02-05-2019"));
-        if (!campaigns.contains(newCampaign2)) campaigns.add(newCampaign2);
+        Campaign newCampaign1 = new Campaign(1, "first", DateUtils.formatter.parse("01-01-2019"), DateUtils.formatter.parse("03-05-2019"));
+        if (!campaignAlreadyExists(campaigns, newCampaign1.getName(), newCampaign1.getTeamId())) campaigns.add(newCampaign1);
+        Campaign newCampaign2 = new Campaign(2, "second", DateUtils.formatter.parse("01-01-2019"), DateUtils.formatter.parse("02-05-2019"));
+        if (!campaignAlreadyExists(campaigns, newCampaign2.getName(), newCampaign2.getTeamId())) campaigns.add(newCampaign2);
         return campaigns;
     }
 

@@ -19,6 +19,14 @@ public class PartnerController {
     private static List<Partner> partners = new ArrayList<>();
     private static List<PartnerCampaign> partnerCampaigns = new ArrayList<>();
 
+    @PostMapping("/clear")
+    @ResponseBody
+    public String clear() throws ParseException {
+        partners = new ArrayList<>();
+        partnerCampaigns = new ArrayList<>();
+        return "Clientes removidos!";
+    }
+
     @PostMapping("/init")
     @ResponseBody
     public List<Partner> init() throws ParseException {

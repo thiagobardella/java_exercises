@@ -5,15 +5,13 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import exercise1and2.models.CampaignInput;
+import exercise1and2.utils.DateUtils;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class GsonCampaignInputDeserializer implements JsonDeserializer<CampaignInput> {
-
-    private static SimpleDateFormat formatter
-            = new SimpleDateFormat("dd-MM-yyyy");
 
     @Override
     public CampaignInput deserialize(
@@ -25,7 +23,7 @@ public class GsonCampaignInputDeserializer implements JsonDeserializer<CampaignI
         String startDate = jObject.get("start_date").getAsString();
         String endDate = jObject.get("end_date").getAsString();
         try {
-            return new CampaignInput(teamId, name, formatter.parse(startDate), formatter.parse(endDate));
+            return new CampaignInput(teamId, name, DateUtils.formatter.parse(startDate), DateUtils.formatter.parse(endDate));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

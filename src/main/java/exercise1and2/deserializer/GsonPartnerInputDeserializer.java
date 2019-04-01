@@ -4,14 +4,11 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import exercise1and2.models.CampaignInput;
-import exercise1and2.models.Partner;
 import exercise1and2.models.PartnerInput;
 import exercise1and2.utils.DateUtils;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class GsonPartnerInputDeserializer implements JsonDeserializer<PartnerInput> {
 

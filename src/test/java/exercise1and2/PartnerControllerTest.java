@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import exercise1and2.models.PartnerInput;
 import exercise1and2.utils.DateUtils;
 import exercise1and2.utils.GsonUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -4,17 +4,14 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import exercise1and2.models.CampaignInput;
 import exercise1and2.models.PartnerInput;
+import exercise1and2.utils.DateUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class JsonPartnerInputDeserializer extends StdDeserializer<PartnerInput> {
-
-    private static SimpleDateFormat formatter
-            = new SimpleDateFormat("dd-MM-yyyy");
 
     public JsonPartnerInputDeserializer() {
         this(null);
@@ -34,7 +31,7 @@ public class JsonPartnerInputDeserializer extends StdDeserializer<PartnerInput> 
         String fullName = node.get("full_name").asText();
         String birthDate = node.get("birth_date").asText();
         try {
-            return new PartnerInput(teamId, fullName, email, formatter.parse(birthDate));
+            return new PartnerInput(teamId, fullName, email, DateUtils.formatter.parse(birthDate));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

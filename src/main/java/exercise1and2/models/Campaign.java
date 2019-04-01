@@ -1,6 +1,5 @@
 package exercise1and2.models;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import exercise1and2.deserializer.JsonCampaignSerializer;
 
@@ -8,9 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.apache.tomcat.jni.Time.now;
-
-@JsonDeserialize
 @JsonSerialize(using = JsonCampaignSerializer.class)
 public class Campaign {
 
@@ -18,20 +14,10 @@ public class Campaign {
 
     private int id, teamId;
     private String name;
-    //TODO (add modifiedAt date to tell de final user when some changes happened)
     private Date startDate, endDate;
 
     public Campaign(int teamId, String name, Date startDate, Date endDate) {
         this.id = count.incrementAndGet();
-        this.teamId = teamId;
-        this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    //TODO (melhorar tática com 2 construtores)
-    public Campaign(int id, int teamId, String name, Date startDate, Date endDate) {
-        this.id = id;
         this.teamId = teamId;
         this.name = name;
         this.startDate = startDate;
@@ -77,11 +63,6 @@ public class Campaign {
         endDate = calendar.getTime();
     }
 
-    public Boolean hasExpired() {
-        Date now = new Date(now());
-        return endDate.before(now);
-    }
-
     public Boolean isActive() {
         Date now = new Date();
         return now.compareTo(endDate) <= 0 && now.compareTo(startDate) >=0;
@@ -95,4 +76,5 @@ public class Campaign {
     public int getId() {
         return id;
     }
+
 }

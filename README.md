@@ -1,6 +1,21 @@
 # java_exercises
 
+## Author: Thiago Bardella
+
+A implementação desta tarefa tem como pré-requisitos as seguintes tecnologias:
+
+*   Java 8
+*   Spring Boot Framework
+*   Gradle build tool
+
+Para rodar essa aplicação, basta
+ 
+*   clonar o repositório do git correspondente
+*   importar esse projeto como projeto gradle em sua IDE favorita
+*   executar as tarefas 'build' e 'bootRun'
+ 
 ## Exercícios 1 e 2
+
 
 1)  Para este exercício, assumir que todo campo de data deve estar no formato 
 'dd-MM-yyyy'.
@@ -51,6 +66,10 @@
 
 3)  #### API para clientes
 
+    1)  <b> GET /prova-java/partners/all</b>
+    
+        Retorna todos os clientes cadastrados.
+    
     1) <b>GET /prova-java/partners/{id}</b>
     
         Retorna o cliente já cadastrado.
@@ -166,5 +185,3 @@ exista um overhead de espaço de memória quando comparamos com o Stream, que é
 se um recurso utilizado nos predicados ou funções for compartilhado, 
 o desenvolvedor deverá garantir segurança na execução das threads, o que gera maior 
 complexidade ao código.
-
->>>>>>> master

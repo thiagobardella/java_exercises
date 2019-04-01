@@ -3,16 +3,12 @@ package exercise1and2.deserializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import exercise1and2.models.Campaign;
 import exercise1and2.models.Partner;
+import exercise1and2.utils.DateUtils;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 public class JsonPartnerSerializer extends StdSerializer<Partner> {
-
-    private static SimpleDateFormat formatter
-            = new SimpleDateFormat("dd-MM-yyyy");
 
     public JsonPartnerSerializer() {
         this(null);
@@ -31,7 +27,7 @@ public class JsonPartnerSerializer extends StdSerializer<Partner> {
         jgen.writeNumberField("team_id", value.getTeamId());
         jgen.writeStringField("full_name", value.getFullName());
         jgen.writeStringField("email", value.getEmail());
-        jgen.writeStringField("birth_date", formatter.format(value.getBirthDate()));
+        jgen.writeStringField("birth_date", DateUtils.formatter.format(value.getBirthDate()));
         jgen.writeEndObject();
     }
 }

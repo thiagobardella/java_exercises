@@ -1,14 +1,11 @@
 package exercise1and2.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.annotations.SerializedName;
 import exercise1and2.deserializer.JsonCampaignInputDeserializer;
-import exercise1and2.deserializer.JsonCampaignInputSerializer;
 
 import java.util.Date;
 
-@JsonSerialize(using = JsonCampaignInputSerializer.class)
 @JsonDeserialize(using = JsonCampaignInputDeserializer.class)
 public class CampaignInput {
 
