@@ -1,4 +1,4 @@
-package exercise1and2;
+package exercise1and2.controllers;
 
 
 import exercise1and2.exceptions.PartnerAlreadyRegisteredException;

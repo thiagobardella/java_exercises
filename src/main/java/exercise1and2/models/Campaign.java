@@ -87,9 +87,9 @@ public class Campaign {
         return now.compareTo(endDate) <= 0 && now.compareTo(startDate) >=0;
     }
 
-    // TODO (A campanha está ativa se a sua data de expiração for maior ou igual à data do início do período se referência)
     public Boolean isActiveAfter(Date fromDate) {
-        return endDate.compareTo(fromDate) >= 0;
+        return endDate.compareTo(fromDate) >= 0 &&
+               startDate.compareTo(fromDate) <= 0;
     }
 
     public int getId() {
